@@ -9,41 +9,58 @@ function App() {
   const [employees, setEmployees] = useState(
 [
   {
+    id: 1,
     name: 'TObi',
     role: 'Full Stack Developer',
     img: 'https://images.pexels.com/photos/31585377/pexels-photo-31585377.jpeg?cs=srgb',
   },
     {
+    id: 2,
     name: 'BObi',
     role: 'Business Developer',
     img: 'https://images.pexels.com/photos/31585377/pexels-photo-31585377.jpeg?cs=srgb',
   },
     {
+    id: 3,
     name: 'CObi',
     role: 'JavaScript Developer',
     img: 'https://images.pexels.com/photos/31585377/pexels-photo-31585377.jpeg?cs=srgb',
   },
   {
+    id: 4, 
     name: 'DObi',
     role: 'Product Developer',
     img: 'https://images.pexels.com/photos/31585377/pexels-photo-31585377.jpeg?cs=srgb',
   },
   {
+    id: 5,
     name: 'FObi',
     role: 'Community Developer',
     img: 'https://images.pexels.com/photos/31585377/pexels-photo-31585377.jpeg?cs=srgb',
   },
   {
+    id: 6,
     name: 'GObi',
     role: 'Web Developer',
     img: 'https://images.pexels.com/photos/31585377/pexels-photo-31585377.jpeg?cs=srgb',
   },
   {
+    id: 7,
     name: 'HObi',
     role: 'Building Developer',
     img: 'https://images.pexels.com/photos/31585377/pexels-photo-31585377.jpeg?cs=srgb',
   },
 ]);
+
+function updateEmployee(id, newName, newRole) {
+  setEmployees(employees.map((employee) => {
+      if (id == employee.id) {
+        return { ...employee, name: newName, role: newRole };
+      }
+      return employee;
+    }));
+}
+
 const showEmployees = true;
   return (
     <div className="App">
@@ -59,10 +76,12 @@ const showEmployees = true;
   console.log(uuidv4());
    return ( 
    <Employee
-   key={uuidv4()}
+   key={employee.id}
+   id={employee.id}
    name={employee.name}
    role={employee.role}
    img={employee.img}
+   updateEmployee={updateEmployee}
    />
 );
 })}

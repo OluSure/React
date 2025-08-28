@@ -2,6 +2,9 @@ import './index.css';
 import Employee from './components/Employee';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import AddEmployee from './components/AddEmployee';
+import EditEmployee from './components/EditEmployee';
+
 
 
 function App() {
@@ -53,13 +56,23 @@ function App() {
 ]);
 
 function updateEmployee(id, newName, newRole) {
-  setEmployees((prevEmployees) =>
-    prevEmployees.map((employee) =>
-      employee.id == id
-        ? { ...employee, name: newName, role: newRole }
-        : employee
-    )
-  );
+  const updatedEmployees = employees.map((employee) => {
+    if (employee.id === id) {
+      return { ...employee, name: newName, role: newRole };
+    }
+    return employee;
+  });
+  setEmployees(updatedEmployees);
+}
+
+function newEmployee(name, role, img){
+const newEmployee = {
+    id: uuidv4(),
+    name: name,
+    role: role,
+    img: img,
+  };
+  setEmployees([...employees, newEmployee]);
 }
 
 const showEmployees = true;
@@ -74,7 +87,9 @@ const showEmployees = true;
   />
   <div className="bg-red-300 flex flex-wrap justify-center">
 {employees.map((employee) => {
-  console.log(uuidv4());
+const editEmployee = <editEmployee
+id={employee.id} name={employee.name} role={employee.role} updateEmployee={updateEmployee}
+ />;
    return ( 
    <Employee
    key={employee.id}
@@ -82,13 +97,14 @@ const showEmployees = true;
    name={employee.name}
    role={employee.role}
    img={employee.img}
-   updateEmployee={updateEmployee}
+   editEmployee={editEmployee}
    />
 );
 })}
 </div>
+<AddEmployee newEmployee={newEmployee} />
 </>
-) : (
+) : ( 
       <p>You cant see the employees list</p>
       )}
     </div>

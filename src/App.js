@@ -53,12 +53,13 @@ function App() {
 ]);
 
 function updateEmployee(id, newName, newRole) {
-  setEmployees(employees.map((employee) => {
-      if (id == employee.id) {
-        return { ...employee, name: newName, role: newRole };
-      }
-      return employee;
-    }));
+  setEmployees((prevEmployees) =>
+    prevEmployees.map((employee) =>
+      employee.id == id
+        ? { ...employee, name: newName, role: newRole }
+        : employee
+    )
+  );
 }
 
 const showEmployees = true;
